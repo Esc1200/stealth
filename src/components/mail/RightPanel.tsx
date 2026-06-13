@@ -59,13 +59,17 @@ export function RightPanel({
             placeholder="Ask AI to draft a reply..."
             className="glow-ring h-9 w-full rounded-lg border border-white/10 bg-white/[0.04] px-3 text-xs placeholder:text-muted-foreground/70"
           />
-          <motion.button whileTap={{ scale: 0.94 }} className="grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/[0.06] text-foreground transition hover:bg-white/[0.1]">
+          <motion.button
+            whileTap={{ scale: 0.94 }}
+            disabled={!email || !prompt.trim()}
+            onClick={draftReply}
+            className="grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/[0.06] text-foreground transition hover:bg-white/[0.1] disabled:cursor-not-allowed disabled:opacity-40"
+          >
             <Send className="h-3.5 w-3.5" />
           </motion.button>
         </div>
       </Card>
 
-      {/* Quick actions */}
       <Card>
         <SectionHeader icon={ArrowUpRight} title="Quick actions" />
         <div className="mt-3 grid grid-cols-2 gap-2">
