@@ -219,7 +219,8 @@ export const emails: Email[] = [
     from: "Nadia Reyes",
     email: "nadia*atlas.dev",
     subject: "Encrypted payload test",
-    preview: "The Curve25519 envelope opens cleanly on desktop and mobile with the same account key...",
+    preview:
+      "The Curve25519 envelope opens cleanly on desktop and mobile with the same account key...",
     body: "The Curve25519 envelope opens cleanly on desktop and mobile with the same account key.\n\nI attached the test vector and the decoded header output so you can compare against the relay logs.",
     time: "Yesterday",
     unread: false,

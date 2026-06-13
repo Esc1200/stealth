@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { X, User, Palette, Bell, Keyboard } from "lucide-react";
+import { X, User, Palette, Bell, Keyboard, ShieldCheck } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
