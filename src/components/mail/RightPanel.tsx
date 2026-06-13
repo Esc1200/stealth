@@ -114,12 +114,17 @@ export function RightPanel({
         <Card>
           <SectionHeader icon={Paperclip} title="Attachments" />
           <ul className="mt-3 space-y-1.5">
-            {email.attachments.map((a) => (
-              <li key={a.name} className="flex items-center gap-2 rounded-lg px-2 py-1.5 transition hover:bg-white/[0.04]">
-                <div className="grid h-7 w-7 place-items-center rounded-md bg-white/[0.05] text-[9px] font-bold uppercase text-muted-foreground">{a.type}</div>
+            {email.attachments.map((attachment) => (
+              <li
+                key={attachment.name}
+                className="flex items-center gap-2 rounded-lg px-2 py-1.5 transition hover:bg-white/[0.04]"
+              >
+                <div className="grid h-7 w-7 place-items-center rounded-md bg-white/[0.05] text-[9px] font-bold uppercase text-muted-foreground">
+                  {attachment.type}
+                </div>
                 <div className="min-w-0 flex-1">
-                  <div className="truncate text-xs text-foreground">{a.name}</div>
-                  <div className="text-[10px] text-muted-foreground">{a.size}</div>
+                  <div className="truncate text-xs text-foreground">{attachment.name}</div>
+                  <div className="text-[10px] text-muted-foreground">{attachment.size}</div>
                 </div>
               </li>
             ))}
