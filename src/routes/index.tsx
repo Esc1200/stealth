@@ -274,7 +274,19 @@ function MailApp() {
               showAvatars={preferences.showAvatars}
             />
             <EmailView email={selected} actions={emailActions} />
-            <RightPanel email={selected} onShowToast={showToast} />
+            <RightPanel
+              email={selected}
+              onAction={handleContextAction}
+              onDraftReply={(email, prompt) =>
+                openCompose({
+                  to: email.email,
+                  subject: email.subject.startsWith("Re: ")
+                    ? email.subject
+                    : `Re: ${email.subject}`,
+                  body: `${prompt}\n\nDrafted response:\nThanks for the note. I reviewed the context and will follow up with the next step shortly.${quoteBody(email)}`,
+                })
+              }
+            />
           </div>
         </div>
       </div>
@@ -286,6 +298,8 @@ function MailApp() {
         initialTo={composeInitial.to}
         initialSubject={composeInitial.subject}
         initialBody={composeInitial.body}
+        initialPostage={preferences.minimumPostage}
+        onSubmit={handleComposeSubmit}
       />
       <SettingsModal open={settingsOpen} onClose={() => setSettingsOpen(false)} />
       <CommandPalette 
