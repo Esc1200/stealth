@@ -10,11 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiV1ProtocolRouteImport } from './routes/api/v1/protocol'
 import { Route as ApiV1HealthRouteImport } from './routes/api/v1/health'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1ProtocolRoute = ApiV1ProtocolRouteImport.update({
+  id: '/api/v1/protocol',
+  path: '/api/v1/protocol',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiV1HealthRoute = ApiV1HealthRouteImport.update({
@@ -26,27 +32,31 @@ const ApiV1HealthRoute = ApiV1HealthRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/api/v1/health': typeof ApiV1HealthRoute
+  '/api/v1/protocol': typeof ApiV1ProtocolRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/api/v1/health': typeof ApiV1HealthRoute
+  '/api/v1/protocol': typeof ApiV1ProtocolRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/api/v1/health': typeof ApiV1HealthRoute
+  '/api/v1/protocol': typeof ApiV1ProtocolRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/v1/health'
+  fullPaths: '/' | '/api/v1/health' | '/api/v1/protocol'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/v1/health'
-  id: '__root__' | '/' | '/api/v1/health'
+  to: '/' | '/api/v1/health' | '/api/v1/protocol'
+  id: '__root__' | '/' | '/api/v1/health' | '/api/v1/protocol'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ApiV1HealthRoute: typeof ApiV1HealthRoute
+  ApiV1ProtocolRoute: typeof ApiV1ProtocolRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -56,6 +66,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/protocol': {
+      id: '/api/v1/protocol'
+      path: '/api/v1/protocol'
+      fullPath: '/api/v1/protocol'
+      preLoaderRoute: typeof ApiV1ProtocolRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/v1/health': {
@@ -71,6 +88,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ApiV1HealthRoute: ApiV1HealthRoute,
+  ApiV1ProtocolRoute: ApiV1ProtocolRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
