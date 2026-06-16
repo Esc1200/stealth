@@ -23,6 +23,30 @@ type VirtualMailFolder = "all" | "starred";
 
 export type MailLocation = Exclude<MailFolder, VirtualMailFolder>;
 
+/**
+ * Per-sender policy applied through the sender-conversion flow.
+ * `undefined` means the sender has never been converted (still "unknown").
+ * See src/features/sender-conversion.
+ */
+export type SenderPolicy = "allow" | "verify" | "block";
+
+export type ReceiptState = "none" | "pending" | "sent";
+/**
+ * Reminder metadata attached when a message is snoozed. Persisted on the email
+ * so the snoozed folder can show when it returns and offer edit/undo.
+ * See src/features/snooze.
+ */
+export type SnoozeState = {
+  /** ISO datetime the message should return to the inbox. */
+  remindAt: string;
+  /** Which option produced this reminder. */
+  choice: "later-today" | "tomorrow" | "next-week" | "custom";
+  /** Human label captured at set-time, e.g. "Tomorrow". */
+  label: string;
+  /** ISO datetime the snooze was created. */
+  createdAt: string;
+};
+
 export type Email = {
   id: string;
   from: string;
@@ -38,6 +62,9 @@ export type Email = {
   attachments?: { name: string; size: string; type: string }[];
   avatarColor: string;
   event?: MailEvent;
+  senderPolicy?: SenderPolicy;
+  receiptState?: ReceiptState;
+  snooze?: SnoozeState;
 };
 
 export type MailFilters = {
@@ -109,6 +136,22 @@ export function getFolderLabel(folder: MailFolder) {
   return mailFolders.find((item) => item.key === folder)?.label ?? folder;
 }
 
+/** Folders whose messages carry a verified Stellar identity proof. */
+const verifiedLocations = new Set<MailLocation>(["verified", "priority", "encrypted", "receipts"]);
+
+/** Whether a message's sender identity is considered verified. */
+export function isVerified(email: Email) {
+  return verifiedLocations.has(email.folder);
+}
+
+/**
+ * Deterministic mock proof hash for a message. Shared by the reader's protocol
+ * badge and the command palette so "inspect proof" and the badge agree.
+ */
+export function deriveProof(email: Email) {
+  return `${email.id.padStart(2, "0")}c7...${email.from.length.toString(16)}a9`;
+}
+
 export function getEmailsForFolder(allEmails: Email[], folder: MailFolder) {
   if (folder === "all")
     return allEmails.filter((email) => email.folder !== "spam" && email.folder !== "trash");
@@ -136,9 +179,12 @@ export const emails: Email[] = [
     labels: ["Design", "Priority"],
     attachments: [
       { name: "vantage-identity-v3.pdf", size: "4.2 MB", type: "pdf" },
+      { name: "brand-moodboard.png", size: "1.8 MB", type: "png" },
+      { name: "release-notes.txt", size: "1.2 KB", type: "txt" },
       { name: "motion-principles.key", size: "12.1 MB", type: "key" },
     ],
     avatarColor: c(0),
+    receiptState: "sent",
   },
   {
     id: "2",
@@ -205,6 +251,7 @@ export const emails: Email[] = [
     folder: "inbox",
     labels: ["Investors", "Postage"],
     avatarColor: c(3),
+    receiptState: "pending",
   },
   {
     id: "5",
@@ -233,7 +280,11 @@ export const emails: Email[] = [
     starred: false,
     folder: "encrypted",
     labels: ["Encrypted", "Engineering"],
-    attachments: [{ name: "payload-test-vector.json", size: "18 KB", type: "json" }],
+    attachments: [
+      { name: "payload-test-vector.json", size: "18 KB", type: "json" },
+      { name: "encrypted-data.pgp", size: "1.4 KB", type: "pgp" },
+      { name: "stealth-payload.bin", size: "256 B", type: "bin" },
+    ],
     avatarColor: c(0),
   },
   {
@@ -263,6 +314,12 @@ export const emails: Email[] = [
     folder: "snoozed",
     labels: ["Event", "Snoozed", "Personal"],
     avatarColor: c(2),
+    snooze: {
+      remindAt: "2026-06-14T10:30:00",
+      choice: "tomorrow",
+      label: "Tomorrow",
+      createdAt: "2026-06-13T09:41:00",
+    },
     event: {
       id: "mail-studio-visit",
       title: "Studio visit",

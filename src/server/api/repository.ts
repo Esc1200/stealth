@@ -15,6 +15,8 @@ export interface ApiRepository {
   getRelayLastSuccessfulDelivery(relayId: string): Promise<string | null>;
   getRelayLastFailedDelivery(relayId: string): Promise<string | null>;
   getRelayDeadLetterCount(relayId: string): Promise<number>;
+  getCounter(key: string): Promise<number>;
+  incrementCounter(key: string, windowSeconds: number): Promise<number>;
 }
 
 export const defaultMailboxPolicy: MailboxPolicy = {

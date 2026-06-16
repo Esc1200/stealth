@@ -28,9 +28,11 @@ export function usePreferences() {
     if (!hydrated) return;
     const apply = () => {
       document.documentElement.dataset.theme = resolveTheme(preferences.theme);
-      document.documentElement.dataset.density = preferences.compactMode
-        ? "compact"
-        : "comfortable";
+      const density = preferences.density ?? (preferences.compactMode ? "compact" : "comfortable");
+      document.documentElement.dataset.density = density;
+      document.documentElement.dataset.glass = preferences.glassIntensity ?? "medium";
+      document.documentElement.dataset.reader = preferences.readerTypography ?? "sans";
+      document.documentElement.dataset.motion = preferences.lowerMotion ? "lower" : "full";
     };
 
     apply();
@@ -41,5 +43,5 @@ export function usePreferences() {
     return () => media.removeEventListener("change", apply);
   }, [hydrated, preferences]);
 
-  return { preferences, setPreferences };
+  return { preferences, setPreferences, hydrated };
 }

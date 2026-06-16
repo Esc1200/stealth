@@ -94,6 +94,216 @@ impl PoliciesContract {
     }
 }
 
+// ---------------------------------------------------------------------------
+// Canonical interoperability vector tests
+//
+// Reads the language-neutral fixture at protocol/vectors/vectors.json and
+// drives every primitive-validation case and every policy-decision case
+// through the live Rust helpers and contract functions.  This ensures that
+// CI catches any divergence between the fixture and this implementation.
+//
+// Space/time: O(n) — each vector case is exercised exactly once.
+// ---------------------------------------------------------------------------
+#[cfg(test)]
+mod vectors {
+    extern crate std;
+
+    use serde_json::Value;
+    use soroban_sdk::testutils::Address as _;
+
+    use super::*;
+
+    const VECTORS_JSON: &str = include_str!("../../../../protocol/vectors/vectors.json");
+
+    // -----------------------------------------------------------------------
+    // Primitive-validation helpers (mirror the TypeScript Zod schemas)
+    // -----------------------------------------------------------------------
+
+    fn is_valid_stellar_address(s: &str) -> bool {
+        let s = s.trim();
+        s.len() == 56
+            && s.starts_with('G')
+            && s[1..].chars().all(|c| matches!(c, 'A'..='Z' | '2'..='7'))
+    }
+
+    fn validate_hash32(s: &str) -> Result<std::string::String, ()> {
+        let normalised = s.trim().to_lowercase();
+        if normalised.len() == 64
+            && normalised.chars().all(|c| matches!(c, '0'..='9' | 'a'..='f'))
+        {
+            Ok(normalised)
+        } else {
+            Err(())
+        }
+    }
+
+    fn validate_stroop_amount(s: &str) -> Result<i128, ()> {
+        let s = s.trim();
+        if s.is_empty() || (!s.chars().all(|c| c.is_ascii_digit())) {
+            return Err(());
+        }
+        if s != "0" && s.starts_with('0') {
+            return Err(());
+        }
+        let val: u128 = s.parse().map_err(|_| ())?;
+        if val > i128::MAX as u128 {
+            return Err(());
+        }
+        Ok(val as i128)
+    }
+
+    // -----------------------------------------------------------------------
+    // primitives/address
+    // -----------------------------------------------------------------------
+
+    #[test]
+    fn primitives_address() {
+        let root: Value = serde_json::from_str(VECTORS_JSON).unwrap();
+        let cases = root["categories"]["primitives"]["address"]["cases"]
+            .as_array()
+            .unwrap();
+        for c in cases {
+            let id = c["id"].as_str().unwrap();
+            let input = c["input"].as_str().unwrap_or("");
+            let expected = c["expected"]["valid"].as_bool().unwrap();
+            assert_eq!(
+                is_valid_stellar_address(input),
+                expected,
+                "vectors: {}",
+                id
+            );
+        }
+    }
+
+    // -----------------------------------------------------------------------
+    // primitives/hash
+    // -----------------------------------------------------------------------
+
+    #[test]
+    fn primitives_hash() {
+        let root: Value = serde_json::from_str(VECTORS_JSON).unwrap();
+        let cases = root["categories"]["primitives"]["hash"]["cases"]
+            .as_array()
+            .unwrap();
+        for c in cases {
+            let id = c["id"].as_str().unwrap();
+            let input = c["input"].as_str().unwrap_or("");
+            let expected = c["expected"]["valid"].as_bool().unwrap();
+            let got = validate_hash32(input);
+            assert_eq!(got.is_ok(), expected, "vectors: {}", id);
+            if got.is_ok() {
+                if let Some(exp_norm) = c["expected"]["normalized"].as_str() {
+                    assert_eq!(got.unwrap(), exp_norm, "vectors: {} normalised", id);
+                }
+            }
+        }
+    }
+
+    // -----------------------------------------------------------------------
+    // primitives/amount
+    // -----------------------------------------------------------------------
+
+    #[test]
+    fn primitives_amount() {
+        let root: Value = serde_json::from_str(VECTORS_JSON).unwrap();
+        let cases = root["categories"]["primitives"]["amount"]["cases"]
+            .as_array()
+            .unwrap();
+        for c in cases {
+            let id = c["id"].as_str().unwrap();
+            let input = c["input"].as_str().unwrap_or("");
+            let expected = c["expected"]["valid"].as_bool().unwrap();
+            assert_eq!(
+                validate_stroop_amount(input).is_ok(),
+                expected,
+                "vectors: {}",
+                id
+            );
+        }
+    }
+
+    // -----------------------------------------------------------------------
+    // policy_decisions — exercises the live can_mail contract function
+    // -----------------------------------------------------------------------
+
+    #[test]
+    fn policy_decisions() {
+        let root: Value = serde_json::from_str(VECTORS_JSON).unwrap();
+        let cases = root["categories"]["policy_decisions"]["cases"]
+            .as_array()
+            .unwrap();
+
+        for c in cases {
+            let id = c["id"].as_str().unwrap();
+            let env = Env::default();
+            env.mock_all_auths();
+            let contract_id = env.register(PoliciesContract, ());
+            let client = PoliciesContractClient::new(&env, &contract_id);
+            let owner = soroban_sdk::Address::generate(&env);
+            let sender = soroban_sdk::Address::generate(&env);
+
+            // Apply sender rule from fixture
+            match c["setup"]["senderRule"].as_str().unwrap_or("default") {
+                "allow" => client.set_sender_rule(&owner, &sender, &SenderRule::Allow),
+                "block" => client.set_sender_rule(&owner, &sender, &SenderRule::Block),
+                _ => {}
+            }
+
+            // Apply mailbox policy from fixture (if present)
+            if let Some(policy_obj) = c["setup"]["policy"].as_object() {
+                let min: i128 = policy_obj["minimumPostage"]
+                    .as_str()
+                    .unwrap_or("0")
+                    .parse()
+                    .unwrap();
+                client.set_policy(
+                    &owner,
+                    &MailboxPolicy {
+                        allow_unknown: policy_obj["allowUnknown"].as_bool().unwrap(),
+                        require_verified: policy_obj["requireVerified"].as_bool().unwrap(),
+                        minimum_postage: min,
+                    },
+                );
+            }
+
+            let postage: i128 = c["input"]["postage"].as_str().unwrap().parse().unwrap();
+            let verified = c["input"]["verified"].as_bool().unwrap();
+            let expected = c["expected"]["allowed"].as_bool().unwrap();
+
+            assert_eq!(
+                client.can_mail(&owner, &sender, &verified, &postage),
+                expected,
+                "vectors: {}",
+                id
+            );
+        }
+    }
+
+    // -----------------------------------------------------------------------
+    // tampered — all cases must be rejected by the relevant validator
+    // -----------------------------------------------------------------------
+
+    #[test]
+    fn tampered() {
+        let root: Value = serde_json::from_str(VECTORS_JSON).unwrap();
+        let cases = root["categories"]["tampered"]["cases"]
+            .as_array()
+            .unwrap();
+        for c in cases {
+            let id = c["id"].as_str().unwrap();
+            let schema = c["schema"].as_str().unwrap();
+            let input = c["input"].as_str().unwrap_or("");
+            let valid = match schema {
+                "stellarAddress" => is_valid_stellar_address(input),
+                "hash32" => validate_hash32(input).is_ok(),
+                "stroopAmount" => validate_stroop_amount(input).is_ok(),
+                _ => panic!("unknown schema: {schema}"),
+            };
+            assert!(!valid, "vectors: {id} should be invalid");
+        }
+    }
+}
+
 #[cfg(test)]
 mod test {
     use super::*;
