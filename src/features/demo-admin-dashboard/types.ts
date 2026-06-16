@@ -1,4 +1,3 @@
-
 export type AdminDashboardBreakpoint = "tablet" | "laptop" | "desktop";
 
 export type AdminDashboardPanel = {
@@ -43,7 +42,13 @@ export interface DashboardNavItem {
 }
 
 /** The available top-level sections in the admin dashboard. */
-export type DashboardSection = "overview" | "accounts" | "mail" | "templates" | "audit";
+export type DashboardSection =
+  | "overview"
+  | "accounts"
+  | "mail"
+  | "templates"
+  | "audit"
+  | "campaigns";
 
 /** Props passed to the dashboard shell. */
 export interface DemoAdminDashboardProps {
@@ -59,3 +64,15 @@ export interface StatCard {
   delta?: string;
 }
 
+export interface DemoUser {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+}
+
+export interface DemoItem {
+  id: string;
+  title: string;
+  description: string;
+}

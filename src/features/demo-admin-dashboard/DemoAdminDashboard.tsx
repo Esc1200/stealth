@@ -1,5 +1,14 @@
-import { useState, type ReactNode } from "react";
-import { Activity, BarChart3, FileText, LayoutDashboard, Mail, Shield, Users } from "lucide-react";
+import { useState } from "react";
+import {
+  Activity,
+  BarChart3,
+  FileText,
+  History,
+  LayoutDashboard,
+  Mail,
+  Shield,
+  Users,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import type {
   DashboardNavItem,
@@ -8,6 +17,9 @@ import type {
   StatCard,
 } from "./types";
 import { TemplatePicker } from "./templates";
+import { CampaignSnapshots } from "./components/CampaignSnapshots";
+import { loadDraftDataset, saveDraftDataset } from "./persistence/localStorageAdapter";
+import type { Draft } from "./types/draft";
 
 // ─── Deterministic fake data ──────────────────────────────────────────────────
 
@@ -16,6 +28,7 @@ const NAV_ITEMS: DashboardNavItem[] = [
   { id: "accounts", label: "Accounts", description: "Demo Stellar accounts and balances" },
   { id: "mail", label: "Mail", description: "Demo mail fixtures and delivery states" },
   { id: "templates", label: "Templates", description: "Pick message templates to populate drafts" },
+  { id: "campaigns", label: "Campaigns", description: "Save and restore campaign draft snapshots" },
   { id: "audit", label: "Audit", description: "Demo protocol event log" },
 ];
 
@@ -62,6 +75,7 @@ const SECTION_ICON: Record<DashboardSection, React.ElementType> = {
   accounts: Users,
   mail: Mail,
   templates: FileText,
+  campaigns: History,
   audit: Activity,
 };
 
@@ -194,24 +208,18 @@ function AuditContent() {
   );
 }
 
-function TemplatesContent() {
-  return <TemplatePicker />;
-}
-
-const SECTION_CONTENT: Record<DashboardSection, () => ReactNode> = {
-  overview: OverviewContent,
-  accounts: AccountsContent,
-  mail: MailContent,
-  templates: TemplatesContent,
-  audit: AuditContent,
-};
-
 // ─── Dashboard Shell ──────────────────────────────────────────────────────────
 
 export function DemoAdminDashboard({ className }: DemoAdminDashboardProps) {
   const [activeSection, setActiveSection] = useState<DashboardSection>("overview");
+  const [dataset, setDataset] = useState<Draft[]>(() => loadDraftDataset() || []);
+
+  const handleDatasetChange = (nextDataset: Draft[]) => {
+    setDataset(nextDataset);
+    saveDraftDataset(nextDataset);
+  };
+
   const Icon = SECTION_ICON[activeSection];
-  const ContentComponent = SECTION_CONTENT[activeSection];
 
   return (
     <div
@@ -281,7 +289,16 @@ export function DemoAdminDashboard({ className }: DemoAdminDashboardProps) {
             <h3 className="text-sm font-semibold text-foreground capitalize">{activeSection}</h3>
           </div>
 
-          <ContentComponent />
+          {activeSection === "overview" && <OverviewContent />}
+          {activeSection === "accounts" && <AccountsContent />}
+          {activeSection === "mail" && <MailContent />}
+          {activeSection === "templates" && (
+            <TemplatePicker dataset={dataset} onDatasetChange={handleDatasetChange} />
+          )}
+          {activeSection === "campaigns" && (
+            <CampaignSnapshots currentDataset={dataset} onRestoreDataset={handleDatasetChange} />
+          )}
+          {activeSection === "audit" && <AuditContent />}
         </div>
       </div>
     </div>
