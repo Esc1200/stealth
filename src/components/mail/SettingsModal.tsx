@@ -1,5 +1,21 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { X, User, Palette, Bell, Keyboard, ShieldCheck, Lock, Laptop, Key, RefreshCw, Copy, Trash2, Edit, Check, AlertTriangle } from "lucide-react";
+import {
+  X,
+  User,
+  Palette,
+  Bell,
+  Keyboard,
+  ShieldCheck,
+  Lock,
+  Laptop,
+  Key,
+  RefreshCw,
+  Copy,
+  Trash2,
+  Edit,
+  Check,
+  AlertTriangle,
+} from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import type { UiPreferences } from "@/features/preferences";
@@ -360,8 +376,20 @@ function SecuritySettings() {
   const [deviceName, setDeviceName] = useState("");
 
   const sessions = [
-    { id: "1", device: "Current session - MacBook Air", location: "San Francisco, CA", lastActive: "Just now", isCurrent: true },
-    { id: "2", device: "iPhone 15 Pro", location: "San Francisco, CA", lastActive: "2 hours ago", isCurrent: false },
+    {
+      id: "1",
+      device: "Current session - MacBook Air",
+      location: "San Francisco, CA",
+      lastActive: "Just now",
+      isCurrent: true,
+    },
+    {
+      id: "2",
+      device: "iPhone 15 Pro",
+      location: "San Francisco, CA",
+      lastActive: "2 hours ago",
+      isCurrent: false,
+    },
   ];
 
   const devices = [
@@ -387,31 +415,42 @@ function SecuritySettings() {
         <div className="flex items-center justify-between">
           <div>
             <p className="text-sm font-medium text-foreground">Active sessions</p>
-            <p className="text-xs text-muted-foreground">Sessions currently signed in to your account</p>
+            <p className="text-xs text-muted-foreground">
+              Sessions currently signed in to your account
+            </p>
           </div>
         </div>
         <div className="space-y-2">
           {sessions.map((session) => (
-            <div key={session.id} className="flex items-center justify-between rounded-lg border border-white/5 bg-white/[0.02] p-3">
+            <div
+              key={session.id}
+              className="flex items-center justify-between rounded-lg border border-white/5 bg-white/[0.02] p-3"
+            >
               <div className="flex items-center gap-3">
                 <Laptop className="h-4 w-4 text-muted-foreground" />
                 <div>
                   <div className="flex items-center gap-2">
                     <p className="text-sm text-foreground">{session.device}</p>
                     {session.isCurrent && (
-                      <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-medium text-emerald-400">Current</span>
+                      <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-medium text-emerald-400">
+                        Current
+                      </span>
                     )}
                   </div>
-                  <p className="text-xs text-muted-foreground">{session.location} • {session.lastActive}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {session.location} • {session.lastActive}
+                  </p>
                 </div>
               </div>
               {!session.isCurrent && (
                 <button
-                  onClick={() => setConfirmDialog({
-                    title: "Revoke session?",
-                    description: "This will sign out this device from your account.",
-                    onConfirm: () => setConfirmDialog(null)
-                  })}
+                  onClick={() =>
+                    setConfirmDialog({
+                      title: "Revoke session?",
+                      description: "This will sign out this device from your account.",
+                      onConfirm: () => setConfirmDialog(null),
+                    })
+                  }
                   className="rounded-lg px-3 py-1.5 text-xs text-red-400 hover:bg-red-500/10 transition"
                 >
                   Revoke
@@ -427,12 +466,17 @@ function SecuritySettings() {
         <div className="flex items-center justify-between">
           <div>
             <p className="text-sm font-medium text-foreground">Trusted devices</p>
-            <p className="text-xs text-muted-foreground">Devices that can access your account without extra verification</p>
+            <p className="text-xs text-muted-foreground">
+              Devices that can access your account without extra verification
+            </p>
           </div>
         </div>
         <div className="space-y-2">
           {devices.map((device) => (
-            <div key={device.id} className="flex items-center justify-between rounded-lg border border-white/5 bg-white/[0.02] p-3">
+            <div
+              key={device.id}
+              className="flex items-center justify-between rounded-lg border border-white/5 bg-white/[0.02] p-3"
+            >
               <div className="flex items-center gap-3">
                 <Laptop className="h-4 w-4 text-muted-foreground" />
                 {editingDevice === device.id ? (
@@ -452,7 +496,9 @@ function SecuritySettings() {
                 ) : (
                   <div>
                     <p className="text-sm text-foreground">{device.name}</p>
-                    <p className="text-xs text-muted-foreground">{device.type} • {device.lastActive}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {device.type} • {device.lastActive}
+                    </p>
                   </div>
                 )}
               </div>
@@ -477,7 +523,9 @@ function SecuritySettings() {
         <div className="flex items-center justify-between">
           <div>
             <p className="text-sm font-medium text-foreground">Account recovery</p>
-            <p className="text-xs text-muted-foreground">Backup access to your account if you lose your keys</p>
+            <p className="text-xs text-muted-foreground">
+              Backup access to your account if you lose your keys
+            </p>
           </div>
         </div>
         <div className="rounded-lg border border-white/5 bg-white/[0.02] p-4 space-y-3">
@@ -504,7 +552,9 @@ function SecuritySettings() {
         </div>
         <div className="rounded-lg border border-white/5 bg-white/[0.02] p-4 space-y-3">
           <div className="flex items-center justify-between rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2">
-            <code className="text-[10px] text-muted-foreground truncate">GDQJMSGKJGQ2X576L33OY4JFDZ7NJG5OJ3LJ44V33PUPU7D5Q5X4KJ</code>
+            <code className="text-[10px] text-muted-foreground truncate">
+              GDQJMSGKJGQ2X576L33OY4JFDZ7NJG5OJ3LJ44V33PUPU7D5Q5X4KJ
+            </code>
             <button
               onClick={handleCopyKey}
               className="ml-2 flex items-center gap-1 rounded px-2 py-1 text-[10px] text-muted-foreground hover:bg-white/[0.06] transition"
@@ -514,11 +564,14 @@ function SecuritySettings() {
             </button>
           </div>
           <button
-            onClick={() => setConfirmDialog({
-              title: "Rotate keys?",
-              description: "This will generate a new key pair. You'll need to update your recovery info.",
-              onConfirm: () => setConfirmDialog(null)
-            })}
+            onClick={() =>
+              setConfirmDialog({
+                title: "Rotate keys?",
+                description:
+                  "This will generate a new key pair. You'll need to update your recovery info.",
+                onConfirm: () => setConfirmDialog(null),
+              })
+            }
             className="flex items-center gap-2 rounded-lg border border-white/10 px-3 py-2 text-xs text-amber-400 hover:bg-amber-500/10 transition"
           >
             <RefreshCw className="h-3.5 w-3.5" />
@@ -532,7 +585,9 @@ function SecuritySettings() {
         <div className="flex items-center justify-between">
           <div>
             <p className="text-sm font-medium text-foreground">High-risk actions</p>
-            <p className="text-xs text-muted-foreground">Extra confirmation for sensitive operations</p>
+            <p className="text-xs text-muted-foreground">
+              Extra confirmation for sensitive operations
+            </p>
           </div>
         </div>
         <div className="rounded-lg border border-white/10 bg-white/[0.02] p-4 opacity-50 pointer-events-none">
