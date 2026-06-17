@@ -26,16 +26,12 @@ const mockStorage = (() => {
 })();
 
 function setWindowStorage() {
-  // @ts-expect-error - mock window storage for Node environment
   global.window = { localStorage: mockStorage } as unknown as Window & typeof globalThis;
-  // @ts-expect-error - mock localStorage for Node environment
   global.localStorage = mockStorage as unknown as Storage;
 }
 
 function clearWindowStorage() {
-  // @ts-expect-error - clean up mock
   delete (global as unknown as { window?: unknown }).window;
-  // @ts-expect-error - clean up mock
   delete (global as unknown as { localStorage?: unknown }).localStorage;
 }
 
