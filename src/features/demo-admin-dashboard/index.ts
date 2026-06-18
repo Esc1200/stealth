@@ -150,14 +150,12 @@ export {
   type SnoozedDemoMessage,
 } from "./snooze";
 
-export {
-  type SenderPolicy,
-  type SenderPersona,
-  defaultSenderPersonas,
-  SenderPersonaSelector,
-  SenderPersonaEditor,
-  validateSenderPersona,
-} from "./senderPersonas";
+export type { SenderPolicy, SenderPersona } from "./senderPersonas/types";
+export { defaultSenderPersonas } from "./senderPersonas/senderPersonaFixtures";
+export { SenderPersonaSelector } from "./senderPersonas/SenderPersonaSelector";
+export { SenderPersonaEditor } from "./senderPersonas/SenderPersonaEditor";
+export { validateSenderPersona } from "./senderPersonas/validation";
+
 export {
   POSTAGE_STATUS_LABEL,
   truncateHash,
