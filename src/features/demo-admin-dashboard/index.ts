@@ -154,3 +154,15 @@ export { useDraftDataset } from "./hooks/useDraftDataset";
 export type { UseDraftDatasetResult } from "./hooks/useDraftDataset";
 export type { DraftDatasetAction, DraftDatasetState } from "./types/draftDataset";
 export { draftDatasetSample } from "./fixtures/draftDatasetFixtures";
+
+// Draft dataset JSON export (issue #190): serializer, filename builder, button.
+export {
+  buildDatasetExport,
+  serializeDraftDataset,
+  serializeDraftDatasetState,
+  buildExportFilename,
+} from "./helpers/datasetExport";
+export { DATASET_EXPORT_SCHEMA_VERSION } from "./types/datasetExport";
+export type { DraftDatasetExport } from "./types/datasetExport";
+export { ExportDatasetButton } from "./components/ExportDatasetButton";
+export type { ExportDatasetButtonProps } from "./components/ExportDatasetButton";
