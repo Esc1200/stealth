@@ -4,6 +4,7 @@ import {
   BarChart3,
   Calendar,
   FileText,
+  GitMerge,
   History,
   LayoutDashboard,
   Mail,
@@ -32,6 +33,8 @@ import { TemplatePicker } from "./templates";
 import { PRESET_SCENARIOS } from "./fixtures/presets";
 import { AdminDataTable, type Column } from "./components/AdminDataTable";
 import { CampaignMessageAssignmentPanel } from "./components/CampaignMessageAssignmentPanel";
+import { CampaignSnapshots } from "./components/CampaignSnapshots";
+import type { Draft } from "./types/draft";
 
 // ─── Default Deterministic fake data ──────────────────────────────────────────
 
@@ -657,6 +660,8 @@ export function DemoAdminDashboard({ className }: DemoAdminDashboardProps) {
   const [activePresetId, setActivePresetId] = useState<PresetId>("none");
   const [selectedAccountAddress, setSelectedAccountAddress] = useState<string | null>(null);
   const [selectedMailSubject, setSelectedMailSubject] = useState<string | null>(null);
+  const [campaignSubView, setCampaignSubView] = useState<"assignments" | "snapshots">("assignments");
+  const [campaignDraftDataset, setCampaignDraftDataset] = useState<Draft[]>([]);
 
   const activePreset = PRESET_SCENARIOS.find((p) => p.id === activePresetId);
 
@@ -794,7 +799,44 @@ export function DemoAdminDashboard({ className }: DemoAdminDashboardProps) {
 
           {activeSection === "templates" && <TemplatesContent />}
 
-          {activeSection === "campaigns" && <CampaignMessageAssignmentPanel />}
+          {activeSection === "campaigns" && (
+            <div className="space-y-6">
+              {/* Sub-navigation toggle */}
+              <div className="flex items-center gap-1 rounded-lg bg-white/[0.03] p-1 border border-white/[0.06] w-fit">
+                {([
+                  { key: "assignments" as const, label: "Assignments", icon: Target },
+                  { key: "snapshots" as const, label: "Merge & Snapshots", icon: GitMerge },
+                ] as const).map((tab) => {
+                  const TabIcon = tab.icon;
+                  const isActive = campaignSubView === tab.key;
+                  return (
+                    <button
+                      key={tab.key}
+                      type="button"
+                      onClick={() => setCampaignSubView(tab.key)}
+                      className={cn(
+                        "inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition",
+                        isActive
+                          ? "bg-white/[0.08] text-foreground shadow-sm"
+                          : "text-muted-foreground hover:text-foreground hover:bg-white/[0.04]",
+                      )}
+                    >
+                      <TabIcon className="h-3.5 w-3.5" />
+                      {tab.label}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {campaignSubView === "assignments" && <CampaignMessageAssignmentPanel />}
+              {campaignSubView === "snapshots" && (
+                <CampaignSnapshots
+                  currentDataset={campaignDraftDataset}
+                  onRestoreDataset={setCampaignDraftDataset}
+                />
+              )}
+            </div>
+          )}
 
           {activeSection === "audit" && <AuditContent auditEvents={auditEvents} />}
         </div>
