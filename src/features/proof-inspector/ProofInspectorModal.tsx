@@ -114,7 +114,7 @@ export function ProofInspectorModal({
 
   const proofRecords = useMemo<MockProofRecord[]>(() => {
     return generateMockProofRecords(emails);
-  }
+  }, [emails]);
                                                   
   // Generate deterministic mock proof records ONLY for shortcuts
   const recentShortcuts = useMemo<MockProofRecord[]>(() => {
