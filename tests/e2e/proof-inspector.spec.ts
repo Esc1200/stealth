@@ -24,7 +24,7 @@ test.describe("proof inspector", () => {
     await page.getByRole("button", { name: "Proof Inspector" }).click();
     const input = page.getByPlaceholder("Enter Message Hash, Payment");
     await input.fill("Lina Park");
-    await page.getByRole("button", { name: "Inspect" }).click();
+    await page.getByRole("button", { name: "Inspect", exact: true }).click();
 
     await expect(page.getByText("Ledger Verified")).toBeVisible();
     await expect(page.getByText("Policy Metadata")).toBeVisible();
@@ -37,7 +37,7 @@ test.describe("proof inspector", () => {
     await page.getByRole("button", { name: "Proof Inspector" }).click();
     const input = page.getByPlaceholder("Enter Message Hash, Payment");
     await input.fill("zzzzzdoesnotexist");
-    await page.getByRole("button", { name: "Inspect" }).click();
+    await page.getByRole("button", { name: "Inspect", exact: true }).click();
 
     await expect(page.getByText("Proof Record Not Found")).toBeVisible();
     await expect(page.getByText("Recommended Next Steps")).toBeVisible();
@@ -64,7 +64,7 @@ test.describe("proof inspector", () => {
     await page.getByRole("button", { name: "Proof Inspector" }).click();
     const input = page.getByPlaceholder("Enter Message Hash, Payment");
     await input.fill("Lina Park");
-    await page.getByRole("button", { name: "Inspect" }).click();
+    await page.getByRole("button", { name: "Inspect", exact: true }).click();
 
     await expect(page.getByText("Copy Proof Diagnostic Report")).toBeVisible();
     await expect(page.getByText("Stellar.Expert")).toBeVisible();
@@ -75,7 +75,7 @@ test.describe("proof inspector", () => {
     await page.getByRole("button", { name: "Proof Inspector" }).click();
     await expect(page.getByRole("dialog", { name: "Cryptographic proof inspector" })).toBeVisible();
 
-    await page.locator(".fixed.inset-0").first().click({ force: true });
+    await page.locator(".fixed.inset-0").click({ position: { x: 10, y: 10 } });
     await expect(
       page.getByRole("dialog", { name: "Cryptographic proof inspector" }),
     ).not.toBeVisible();
