@@ -1,6 +1,7 @@
 # Receipt Organizer - Architecture & Folder Contract
 
 ## Goal
+
 The Receipt Organizer is an isolated, self-contained mini-product in the `tools/v2/individual/receipt-organizer/` folder. It is designed as a "V2" release tool and should be built independently from the main application.
 
 ## Internal Module Boundaries
@@ -29,11 +30,13 @@ The internal folder structure will adhere to the following boundaries:
 ## Rules for Future Contributors
 
 **What You MAY Change:**
+
 - Files restricted to `tools/v2/individual/receipt-organizer/`.
 - Addition of localized components, hooks, tests, and mock data.
 - Refinement of the receipt organizer's isolated UI and logic.
 
 **What You MAY NOT Change:**
+
 - Any file outside of `tools/v2/individual/receipt-organizer/`.
 - Integration into the global state, main app routing, or existing database schema.
 - Creating dependencies on the main app's authentication or email architecture.
