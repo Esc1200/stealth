@@ -4,6 +4,10 @@ use soroban_sdk::{
     contract, contracterror, contractevent, contractimpl, contracttype, symbol_short, token,
     Address, BytesN, Env, MuxedAddress, Symbol,
 };
+use stealth_lifecycle::{
+    LifecycleContractClient, LifecycleTerminal, Postage as LifecyclePostage,
+    PostageStatus as LifecyclePostageStatus,
+};
 
 #[contract]
 pub struct PostageContract;
@@ -56,6 +60,7 @@ pub enum PostageStatus {
 #[contracttype]
 enum DataKey {
     Config,
+    Guard,
     Postage(BytesN<32>),
 }
 
@@ -73,6 +78,8 @@ pub enum Error {
     InvalidWindow = 8,
     NotExpired = 9,
     DisputeUnavailable = 10,
+    GuardNotConfigured = 11,
+    LifecycleRejected = 12,
 }
 
 #[contractimpl]
@@ -111,6 +118,21 @@ impl PostageContract {
             },
         );
         Ok(())
+    }
+
+    pub fn configure_guard(env: Env, guard: Address) -> Result<(), Error> {
+        if env.storage().instance().has(&DataKey::Guard) {
+            return Err(Error::AlreadyInitialized);
+        }
+        env.storage().instance().set(&DataKey::Guard, &guard);
+        Ok(())
+    }
+
+    pub fn guard(env: Env) -> Result<Address, Error> {
+        env.storage()
+            .instance()
+            .get(&DataKey::Guard)
+            .ok_or(Error::GuardNotConfigured)
     }
 
     pub fn config(env: Env) -> Result<EscrowConfig, Error> {
@@ -191,6 +213,13 @@ impl PostageContract {
             return Err(Error::NotExpired);
         }
 
+        Self::verify_guard(
+            &env,
+            message_id.clone(),
+            &postage,
+            LifecycleTerminal::Expired,
+        )?;
+
         postage.status = PostageStatus::Expired;
         env.storage().persistent().set(&key, &postage);
         Self::publish_event(&env, symbol_short!("expire"), message_id, postage.clone());
@@ -198,10 +227,24 @@ impl PostageContract {
     }
 
     pub fn settle(env: Env, message_id: BytesN<32>) -> Result<Postage, Error> {
+        let key = DataKey::Postage(message_id.clone());
+        let postage: Postage = env
+            .storage()
+            .persistent()
+            .get(&key)
+            .ok_or(Error::PostageNotFound)?;
+        Self::verify_guard(&env, message_id.clone(), &postage, LifecycleTerminal::Settled)?;
         Self::resolve(env, message_id, PostageStatus::Settled)
     }
 
     pub fn refund(env: Env, message_id: BytesN<32>) -> Result<Postage, Error> {
+        let key = DataKey::Postage(message_id.clone());
+        let postage: Postage = env
+            .storage()
+            .persistent()
+            .get(&key)
+            .ok_or(Error::PostageNotFound)?;
+        Self::verify_guard(&env, message_id.clone(), &postage, LifecycleTerminal::Refunded)?;
         Self::resolve(env, message_id, PostageStatus::Refunded)
     }
 
@@ -230,6 +273,13 @@ impl PostageContract {
             return Err(Error::DisputeUnavailable);
         }
 
+        Self::verify_guard(
+            &env,
+            message_id.clone(),
+            &postage,
+            LifecycleTerminal::Disputed,
+        )?;
+
         postage.status = PostageStatus::Disputed;
         env.storage().persistent().set(&key, &postage);
         Self::publish_event(&env, symbol_short!("dispute"), message_id, postage.clone());
@@ -253,6 +303,13 @@ impl PostageContract {
         if env.ledger().timestamp() < reclaimable_at {
             return Err(Error::NotExpired);
         }
+
+        Self::verify_guard(
+            &env,
+            message_id.clone(),
+            &postage,
+            LifecycleTerminal::Reclaimed,
+        )?;
 
         let config = Self::read_config(&env)?;
         token::TokenClient::new(&env, &config.asset).transfer(
@@ -336,6 +393,60 @@ impl PostageContract {
             .instance()
             .get(&DataKey::Config)
             .ok_or(Error::NotInitialized)
+    }
+
+    fn verify_guard(
+        env: &Env,
+        message_id: BytesN<32>,
+        postage: &Postage,
+        terminal: LifecycleTerminal,
+    ) -> Result<(), Error> {
+        let guard = env
+            .storage()
+            .instance()
+            .get(&DataKey::Guard)
+            .ok_or(Error::GuardNotConfigured)?;
+        let lifecycle_postage = Self::to_lifecycle_postage(postage);
+        let result = match terminal {
+            LifecycleTerminal::Settled => LifecycleContractClient::new(env, &guard)
+                .try_verify_settle(&message_id, &lifecycle_postage),
+            LifecycleTerminal::Refunded => LifecycleContractClient::new(env, &guard)
+                .try_verify_refund(&message_id, &lifecycle_postage),
+            LifecycleTerminal::Disputed => LifecycleContractClient::new(env, &guard)
+                .try_verify_dispute(&message_id, &lifecycle_postage),
+            LifecycleTerminal::Expired => LifecycleContractClient::new(env, &guard)
+                .try_verify_expire(&message_id, &lifecycle_postage),
+            LifecycleTerminal::Reclaimed => LifecycleContractClient::new(env, &guard)
+                .try_verify_reclaim(&message_id, &lifecycle_postage),
+            LifecycleTerminal::Open
+            | LifecycleTerminal::Delivered
+            | LifecycleTerminal::Read => return Err(Error::LifecycleRejected),
+        };
+
+        match result {
+            Ok(Ok(_)) => Ok(()),
+            Ok(Err(_)) | Err(_) => Err(Error::LifecycleRejected),
+        }
+    }
+
+    fn to_lifecycle_postage(postage: &Postage) -> LifecyclePostage {
+        LifecyclePostage {
+            sender: postage.sender.clone(),
+            recipient: postage.recipient.clone(),
+            amount: postage.amount,
+            fee: postage.fee,
+            created_at: postage.created_at,
+            expires_at: postage.expires_at,
+            dispute_until: postage.dispute_until,
+            status: match postage.status {
+                PostageStatus::Pending => LifecyclePostageStatus::Pending,
+                PostageStatus::Expired => LifecyclePostageStatus::Expired,
+                PostageStatus::Disputed => LifecyclePostageStatus::Disputed,
+                PostageStatus::Settled => LifecyclePostageStatus::Settled,
+                PostageStatus::Refunded => LifecyclePostageStatus::Refunded,
+                PostageStatus::Reclaimed => LifecyclePostageStatus::Reclaimed,
+            },
+        }
     }
 
     fn checked_deadline(timestamp: u64, seconds: u64) -> Result<u64, Error> {
