@@ -149,11 +149,11 @@ export function AdminDataTable<T>({
               return (
                 <tr
                   key={i}
-                  onClick={() => onRowClick && onRowClick(row)}
+                  onClick={() => onRowClick?.(row)}
                   onKeyDown={(e) => {
                     if (isClickable && (e.key === "Enter" || e.key === " ")) {
                       e.preventDefault();
-                      onRowClick && onRowClick(row);
+                      onRowClick?.(row);
                     }
                   }}
                   tabIndex={isClickable ? 0 : undefined}
