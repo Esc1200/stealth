@@ -9,13 +9,7 @@
       "Boundary tests cover empty, malformed, and oversized values",
       "Valid requests keep the existing response shape"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "api",
-      "postage"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "api", "postage"],
     "priority": "High",
     "estimated_complexity": "Medium",
     "repository_area": "src/routes/api/v1/postage/quote.ts"
@@ -30,13 +24,7 @@
       "Tests cover retry-after-success and retry-after-terminal-state cases",
       "Response bodies explain terminal-state outcomes"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "api",
-      "payments"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "api", "payments"],
     "priority": "High",
     "estimated_complexity": "Medium",
     "repository_area": "src/routes/api/v1/postage/$messageId/settle.ts"
@@ -51,13 +39,7 @@
       "Tests cover success, duplicate, and invalid-state refunds",
       "Errors include stable machine-readable codes"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "api",
-      "payments"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "api", "payments"],
     "priority": "High",
     "estimated_complexity": "Medium",
     "repository_area": "src/routes/api/v1/postage/$messageId/refund.ts"
@@ -156,13 +138,7 @@
       "Valid owners retain existing behavior",
       "Shared validation is reused by nested sender routes"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "api",
-      "policies"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "api", "policies"],
     "priority": "High",
     "estimated_complexity": "Medium",
     "repository_area": "src/routes/api/v1/policies/$owner.ts"
@@ -177,13 +153,7 @@
       "Tests verify audit metadata fields",
       "No sensitive payloads are logged"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "audit",
-      "security"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "audit", "security"],
     "priority": "High",
     "estimated_complexity": "Medium",
     "repository_area": "src/routes/api/v1/policies/$owner/senders/$sender.ts"
@@ -220,13 +190,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/response-time-tracker"
@@ -242,13 +206,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/audit-log-viewer"
@@ -264,13 +222,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/suspicious-sender-watchlist"
@@ -286,13 +238,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/suspicious-sender-watchlist/docs"
@@ -308,13 +254,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/legal-and-compliance-review-flag"
@@ -330,13 +270,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/department-labels"
@@ -352,13 +286,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/meeting-assignment-tool"
@@ -374,13 +302,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/knowledge-base-suggestion"
@@ -396,13 +318,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/team-task-board-from-emails"
@@ -418,13 +334,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/team-payment-approval"
@@ -440,13 +350,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/project-mail-binder"
@@ -462,13 +366,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/mail-to-ticket-converter"
@@ -484,13 +382,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/shared-draft-collaboration"
@@ -506,13 +398,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/shared-draft-collaboration/docs"
@@ -528,13 +414,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/manager-review-queue"
@@ -550,13 +430,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/team-digest-generator"
@@ -572,13 +446,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/team-digest-generator/services"
@@ -594,13 +462,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/team-digest-generator/hooks"
@@ -616,13 +478,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/team-digest-generator/components"
@@ -638,13 +494,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/team-digest-generator/tests"
@@ -660,13 +510,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/team-digest-generator/docs"
@@ -682,13 +526,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/stellar-team-payout-request"
@@ -704,13 +542,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/multi-agent-assignment"
@@ -726,13 +558,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/multi-agent-assignment/docs"
@@ -748,13 +574,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/team-analytics-dashboard"
@@ -770,13 +590,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/invoice-approval-workflow"
@@ -792,13 +606,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/shared-contact-notes"
@@ -814,13 +622,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/team-security-flagging"
@@ -836,13 +638,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/escalation-tool"
@@ -858,13 +654,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/team-workload-balancer"
@@ -880,13 +670,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/approval-chain-builder"
@@ -902,13 +686,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/role-based-mail-access"
@@ -924,13 +702,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/role-based-mail-access/docs"
@@ -946,13 +718,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/client-priority-scoring"
@@ -968,13 +734,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/deal-lead-mail-tracker"
@@ -990,13 +750,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/vendor-mail-tracker"
@@ -1012,13 +766,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/vendor-mail-tracker/tests"
@@ -1034,13 +782,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/team-inbox-rules-builder"
@@ -1056,13 +798,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/team-inbox-rules-builder/docs"
@@ -1078,13 +814,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/team/client-thread-timeline"
@@ -1100,13 +830,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/individual/personal-crm-reminder"
@@ -1122,13 +846,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/individual/meeting-notes-extractor"
@@ -1144,13 +862,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/individual/unsubscribe-finder"
@@ -1166,13 +878,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/individual/pdf-summary-tool"
@@ -1188,13 +894,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/individual/pdf-summary-tool/services"
@@ -1210,13 +910,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/individual/pdf-summary-tool/hooks"
@@ -1232,13 +926,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/individual/pdf-summary-tool/components"
@@ -1254,13 +942,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/individual/pdf-summary-tool/tests"
@@ -1276,13 +958,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/individual/pdf-summary-tool/docs"
@@ -1298,13 +974,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/individual/pdf-summary-tool/utils"
@@ -1320,13 +990,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/individual/pdf-summary-tool/types"
@@ -1342,13 +1006,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/individual/pdf-summary-tool/fixtures"
@@ -1364,13 +1022,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/individual/pdf-summary-tool/config"
@@ -1386,13 +1038,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/individual/draft-improver"
@@ -1408,13 +1054,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/individual/invoice-detector"
@@ -1430,13 +1070,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/individual/email-template-library"
@@ -1452,13 +1086,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/individual/follow-up-sequence-builder"
@@ -1474,13 +1102,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/individual/private-note-on-email"
@@ -1496,13 +1118,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/individual/readability-improver"
@@ -1518,13 +1134,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/individual/cold-email-writer"
@@ -1540,13 +1150,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/individual/task-extractor"
@@ -1562,13 +1166,7 @@
       "Fixtures cover success and failure cases",
       "No styling or layout files are changed"
     ],
-    "labels": [
-      "Maybe Rewarded",
-      "GrantFox OSS",
-      "Official Campaign | FWC26",
-      "tooling",
-      "non-ui"
-    ],
+    "labels": ["Maybe Rewarded", "GrantFox OSS", "Official Campaign | FWC26", "tooling", "non-ui"],
     "priority": "Medium",
     "estimated_complexity": "Medium",
     "repository_area": "tools/v2/individual/sentiment-detector"
