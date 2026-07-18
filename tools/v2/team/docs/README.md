@@ -36,10 +36,7 @@ Usage:
 import { createDocsService } from ".";
 
 const contract = createDocsService();
-const res = contract.execute(
-  { operation: "resolve", input: { ref: "doc-api-reference" } },
-  index,
-);
+const res = contract.execute({ operation: "resolve", input: { ref: "doc-api-reference" } }, index);
 if (res.ok && res.value.operation === "resolve") {
   // res.value.doc has id/title/path/tags
 } else {
