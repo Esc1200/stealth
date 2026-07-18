@@ -18,7 +18,7 @@ const outcome = safeImproveReadability({
 });
 
 if (outcome.status === "ok") {
-  outcome.result.score;  // Flesch reading ease, 0–100
+  outcome.result.score; // Flesch reading ease, 0–100
   outcome.result.issues; // typed findings with suggestions
 }
 ```
