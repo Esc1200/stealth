@@ -14,6 +14,7 @@ import {
   getClientThread,
   ok,
   fail,
+  type TimelineContractOutput,
   type TimelineResult,
 } from "../contract";
 import { TIMELINE_FIXTURES, ACME_MESSAGES, EMPTY_MESSAGES } from "../fixtures";
@@ -108,7 +109,7 @@ describe("timeline contract — getThread", () => {
 
   it("returns NotFound for an unknown thread (no throw)", () => {
     const contract = createTimelineContract();
-    const res: TimelineResult<never> = contract.execute({
+    const res: TimelineResult<TimelineContractOutput> = contract.execute({
       operation: "getThread",
       input: {
         clientId: "client-acme",
