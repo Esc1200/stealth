@@ -44,44 +44,99 @@ export const openApiDocument = {
     },
   },
   paths: {
-    "/health": { get: { summary: "Read service health" } },
-    "/protocol": { get: { summary: "Discover protocol capabilities" } },
-    "/openapi.json": { get: { summary: "Read this OpenAPI document" } },
+    "/health": {
+      get: { summary: "Read service health", responses: { default: { description: "" } } },
+    },
+    "/protocol": {
+      get: {
+        summary: "Discover protocol capabilities",
+        responses: { default: { description: "" } },
+      },
+    },
+    "/openapi.json": {
+      get: { summary: "Read this OpenAPI document", responses: { default: { description: "" } } },
+    },
     "/policies/{owner}": {
-      get: { summary: "Read mailbox policy" },
-      put: { summary: "Replace mailbox policy", security: actorSecurity },
+      get: { summary: "Read mailbox policy", responses: { default: { description: "" } } },
+      put: {
+        summary: "Replace mailbox policy",
+        security: actorSecurity,
+        responses: { default: { description: "" } },
+      },
     },
     "/policies/{owner}/senders/{sender}": {
-      get: { summary: "Read a sender override" },
-      put: { summary: "Set a sender override", security: actorSecurity },
-      delete: { summary: "Reset a sender override", security: actorSecurity },
+      get: { summary: "Read a sender override", responses: { default: { description: "" } } },
+      put: {
+        summary: "Set a sender override",
+        security: actorSecurity,
+        responses: { default: { description: "" } },
+      },
+      delete: {
+        summary: "Reset a sender override",
+        security: actorSecurity,
+        responses: { default: { description: "" } },
+      },
     },
     "/policies/evaluate": {
-      post: { summary: "Evaluate whether a sender can mail a recipient" },
+      post: {
+        summary: "Evaluate whether a sender can mail a recipient",
+        responses: { default: { description: "" } },
+      },
     },
     "/postage": {
-      post: { summary: "Submit a postage proof", security: actorSecurity },
+      post: {
+        summary: "Submit a postage proof",
+        security: actorSecurity,
+        responses: { default: { description: "" } },
+      },
     },
     "/postage/quote": {
-      post: { summary: "Quote recipient postage requirements" },
+      post: {
+        summary: "Quote recipient postage requirements",
+        responses: { default: { description: "" } },
+      },
     },
     "/postage/{messageId}": {
-      get: { summary: "Read participant postage state", security: actorSecurity },
+      get: {
+        summary: "Read participant postage state",
+        security: actorSecurity,
+        responses: { default: { description: "" } },
+      },
     },
     "/postage/{messageId}/settle": {
-      post: { summary: "Settle pending postage", security: actorSecurity },
+      post: {
+        summary: "Settle pending postage",
+        security: actorSecurity,
+        responses: { default: { description: "" } },
+      },
     },
     "/postage/{messageId}/refund": {
-      post: { summary: "Mark pending postage for refund", security: actorSecurity },
+      post: {
+        summary: "Mark pending postage for refund",
+        security: actorSecurity,
+        responses: { default: { description: "" } },
+      },
     },
     "/receipts": {
-      post: { summary: "Record message delivery", security: actorSecurity },
+      post: {
+        summary: "Record message delivery",
+        security: actorSecurity,
+        responses: { default: { description: "" } },
+      },
     },
     "/receipts/{messageId}": {
-      get: { summary: "Read participant receipt state", security: actorSecurity },
+      get: {
+        summary: "Read participant receipt state",
+        security: actorSecurity,
+        responses: { default: { description: "" } },
+      },
     },
     "/receipts/{messageId}/read": {
-      post: { summary: "Record recipient read acknowledgment", security: actorSecurity },
+      post: {
+        summary: "Record recipient read acknowledgment",
+        security: actorSecurity,
+        responses: { default: { description: "" } },
+      },
     },
   },
 } as const;

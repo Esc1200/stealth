@@ -52,22 +52,42 @@
   "paths": {
     "/health": {
       "get": {
-        "summary": "Read service health"
+        "summary": "Read service health",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
       }
     },
     "/protocol": {
       "get": {
-        "summary": "Discover protocol capabilities"
+        "summary": "Discover protocol capabilities",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
       }
     },
     "/openapi.json": {
       "get": {
-        "summary": "Read this OpenAPI document"
+        "summary": "Read this OpenAPI document",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
       }
     },
     "/policies/{owner}": {
       "get": {
-        "summary": "Read mailbox policy"
+        "summary": "Read mailbox policy",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
       },
       "put": {
         "summary": "Replace mailbox policy",
@@ -75,12 +95,22 @@
           {
             "ActorHeader": []
           }
-        ]
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
       }
     },
     "/policies/{owner}/senders/{sender}": {
       "get": {
-        "summary": "Read a sender override"
+        "summary": "Read a sender override",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
       },
       "put": {
         "summary": "Set a sender override",
@@ -88,7 +118,12 @@
           {
             "ActorHeader": []
           }
-        ]
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
       },
       "delete": {
         "summary": "Reset a sender override",
@@ -96,12 +131,22 @@
           {
             "ActorHeader": []
           }
-        ]
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
       }
     },
     "/policies/evaluate": {
       "post": {
-        "summary": "Evaluate whether a sender can mail a recipient"
+        "summary": "Evaluate whether a sender can mail a recipient",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
       }
     },
     "/postage": {
@@ -111,12 +156,22 @@
           {
             "ActorHeader": []
           }
-        ]
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
       }
     },
     "/postage/quote": {
       "post": {
-        "summary": "Quote recipient postage requirements"
+        "summary": "Quote recipient postage requirements",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
       }
     },
     "/postage/{messageId}": {
@@ -126,7 +181,12 @@
           {
             "ActorHeader": []
           }
-        ]
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
       }
     },
     "/postage/{messageId}/settle": {
@@ -136,7 +196,12 @@
           {
             "ActorHeader": []
           }
-        ]
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
       }
     },
     "/postage/{messageId}/refund": {
@@ -146,7 +211,12 @@
           {
             "ActorHeader": []
           }
-        ]
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
       }
     },
     "/receipts": {
@@ -156,7 +226,12 @@
           {
             "ActorHeader": []
           }
-        ]
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
       }
     },
     "/receipts/{messageId}": {
@@ -166,7 +241,12 @@
           {
             "ActorHeader": []
           }
-        ]
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
       }
     },
     "/receipts/{messageId}/read": {
@@ -176,7 +256,12 @@
           {
             "ActorHeader": []
           }
-        ]
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
       }
     }
   }
