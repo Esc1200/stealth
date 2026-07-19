@@ -44,7 +44,19 @@ export const openApiDocument = {
     },
   },
   paths: {
-    "/health": { get: { summary: "Read service health" } },
+    "/health": {
+      get: {
+        summary: "Read service liveness or dependency readiness",
+        parameters: [
+          {
+            name: "check",
+            in: "query",
+            required: false,
+            schema: { type: "string", enum: ["liveness", "readiness"] },
+          },
+        ],
+      },
+    },
     "/protocol": { get: { summary: "Discover protocol capabilities" } },
     "/openapi.json": { get: { summary: "Read this OpenAPI document" } },
     "/policies/{owner}": {

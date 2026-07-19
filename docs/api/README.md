@@ -4,7 +4,7 @@ The TanStack Start worker exposes versioned endpoints under `/api/v1`.
 
 ## Endpoint groups
 
-- Operations: `GET /health`, `GET /protocol`, `GET /openapi.json`
+- Operations: `GET /health`, `GET /health?check=readiness`, `GET /protocol`, `GET /openapi.json`
 - Policy: read or replace mailbox defaults, manage sender overrides, and evaluate admission
 - Postage: quote, submit, retrieve, settle, and refund message postage
 - Receipts: record delivery, retrieve participant state, and acknowledge reads
@@ -29,6 +29,15 @@ Protected endpoints require `x-stealth-address` with the Stellar address acting 
 This header only preserves authorization boundaries during development. It is not authentication.
 Production must derive the actor from a verified wallet challenge or signed session and must ignore
 caller-supplied identity headers at the public edge.
+
+## Health checks
+
+`GET /api/v1/health` is a liveness check. It only confirms that the worker can respond and does not
+depend on external storage or optional integrations.
+
+`GET /api/v1/health?check=readiness` is a readiness check. It verifies required API dependencies
+with bounded timeouts and returns only sanitized dependency states, not binding names, connection
+details, or error messages. A failed readiness check returns `503`.
 
 ```bash
 curl -X PUT http://localhost:8080/api/v1/policies/GAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA \
