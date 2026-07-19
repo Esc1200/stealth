@@ -30,9 +30,6 @@ export default defineConfig(({ command }) => ({
   optimizeDeps: {
     exclude: ["cloudflare:workers"],
   },
-  ssr: {
-    external: ["cloudflare:workers"],
-  },
   plugins: [
     tailwindcss(),
     tsConfigPaths({ projects: ["./tsconfig.json"] }),
