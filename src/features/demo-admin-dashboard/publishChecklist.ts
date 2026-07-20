@@ -34,9 +34,9 @@ function isSafeRecipient(address: string): boolean {
 function hasRequiredDraftFields(draft: Draft): boolean {
   return Boolean(
     draft.id?.trim() &&
-    draft.subject?.trim() &&
-    draft.body?.trim() &&
-    Array.isArray(draft.recipients),
+      draft.subject?.trim() &&
+      draft.body?.trim() &&
+      Array.isArray(draft.recipients),
   );
 }
 
@@ -136,7 +136,9 @@ export function buildPublishChecklist(
         "safe-domains",
         "Recipients use safe demo domains only",
         "blocked",
-        `Unsafe addresses: ${unsafeRecipients.slice(0, 3).join(", ")}${unsafeRecipients.length > 3 ? "…" : ""}`,
+        `Unsafe addresses: ${unsafeRecipients.slice(0, 3).join(", ")}${
+          unsafeRecipients.length > 3 ? "…" : ""
+        }`,
         "Use example.com, example.org, or a *.stealth.demo handle.",
       ),
     );

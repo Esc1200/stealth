@@ -227,10 +227,10 @@ export function Topbar({
                           {range === "all"
                             ? "All time"
                             : range === "week"
-                              ? "This week"
-                              : range === "month"
-                                ? "This month"
-                                : "Today"}
+                            ? "This week"
+                            : range === "month"
+                            ? "This month"
+                            : "Today"}
                         </span>
                       </button>
                     ))}
@@ -435,7 +435,9 @@ export function Topbar({
                             current === "personal" ? "protocol" : "personal",
                           );
                           onShowToast(
-                            `Switched to ${account === "personal" ? "Protocol" : "Personal"} mailbox`,
+                            `Switched to ${
+                              account === "personal" ? "Protocol" : "Personal"
+                            } mailbox`,
                           );
                         }}
                       />
