@@ -41,6 +41,51 @@ export const openApiDocument = {
           requireVerified: { type: "boolean" },
         },
       },
+      ValidationErrorItem: {
+        type: "object",
+        required: ["path", "rule", "message"],
+        additionalProperties: false,
+        properties: {
+          path: {
+            type: "string",
+            description:
+              "Safe request field path using dot and bracket notation; root errors use $.",
+            examples: ["recipient", "tags[0]", "$"],
+          },
+          rule: {
+            type: "string",
+            description:
+              "Application-owned validation rule code, independent of validator libraries.",
+            enum: [
+              "invalid_type",
+              "format",
+              "min_length",
+              "max_length",
+              "minimum",
+              "maximum",
+              "missing",
+              "unknown_field",
+              "invalid_value",
+            ],
+          },
+          message: {
+            type: "string",
+            description:
+              "Human-readable validation guidance. Rejected input values are never echoed.",
+          },
+        },
+      },
+      ValidationErrorDetails: {
+        type: "object",
+        required: ["validationErrors"],
+        additionalProperties: false,
+        properties: {
+          validationErrors: {
+            type: "array",
+            items: { $ref: "#/components/schemas/ValidationErrorItem" },
+          },
+        },
+      },
     },
   },
   paths: {
