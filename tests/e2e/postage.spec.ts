@@ -92,7 +92,11 @@ test.describe("postage API", () => {
     const msgId = "c".repeat(64);
     const payHash = "d".repeat(64);
 
-    await api.putPolicy(actor, { allowUnknown: true, minimumPostage: "50", requireVerified: false });
+    await api.putPolicy(actor, {
+      allowUnknown: true,
+      minimumPostage: "50",
+      requireVerified: false,
+    });
 
     const quoteRes = await api.quotePostage(actor, sender);
     const { data: quoteData } = await quoteRes.json();
