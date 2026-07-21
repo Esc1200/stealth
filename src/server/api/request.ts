@@ -5,8 +5,15 @@ import { ApiError } from "./errors";
 const DEFAULT_MAX_BODY_BYTES = 64 * 1024;
 
 function assertJsonContentType(request: Request) {
-  const contentType = request.headers.get("content-type")?.toLowerCase() ?? "";
-  if (!contentType.includes("application/json")) {
+  const raw = request.headers.get("content-type");
+  if (!raw) {
+    throw new ApiError(415, "bad_request", "Content-Type header is missing");
+  }
+  // Trim whitespace and ignore case
+  const contentType = raw.trim().toLowerCase();
+  // Regex matches "application/json" or "application/*+json" with optional parameters
+  const jsonTypeRegex = /^application\/(?:[\w!#$&^_.-]+\+)?json(?:\s*;.*)?$/i;
+  if (!jsonTypeRegex.test(contentType)) {
     throw new ApiError(415, "bad_request", "Content-Type must be application/json");
   }
 }
