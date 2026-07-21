@@ -34,7 +34,13 @@ export const Route = createFileRoute("/api/v1/postage/")({
             throw new ApiError(422, "validation_error", "Quote has expired");
           }
 
-          const expectedDigest = signQuote(input.recipient, input.sender, input.amount, input.issuedAt, input.expiresAt);
+          const expectedDigest = signQuote(
+            input.recipient,
+            input.sender,
+            input.amount,
+            input.issuedAt,
+            input.expiresAt,
+          );
           if (expectedDigest !== input.quoteDigest) {
             throw new ApiError(422, "validation_error", "Quote digest is invalid or tampered");
           }

@@ -321,7 +321,7 @@ describe("relay_submission", () => {
           payload.sender || "",
           payload.amount || "0",
           payload.issuedAt,
-          payload.expiresAt
+          payload.expiresAt,
         );
 
         const req1 = new Request("https://stealth.test/api/v1/postage", {
@@ -362,7 +362,7 @@ describe("relay_submission", () => {
           payload.sender || "",
           payload.amount || "0",
           payload.issuedAt,
-          payload.expiresAt
+          payload.expiresAt,
         );
 
         const req = new Request("https://stealth.test/api/v1/postage", {

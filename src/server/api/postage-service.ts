@@ -24,7 +24,13 @@ function SECRET() {
   return process.env.STEALTH_CURSOR_SECRET ?? "dev-secret";
 }
 
-export function signQuote(recipient: string, sender: string, amount: string, issuedAt: string, expiresAt: string): string {
+export function signQuote(
+  recipient: string,
+  sender: string,
+  amount: string,
+  issuedAt: string,
+  expiresAt: string,
+): string {
   const secret = SECRET();
   if (!secret) {
     throw new ApiError(500, "internal_error", "Quote signing secret is not configured");
@@ -41,7 +47,9 @@ export async function quotePostage(
   const { policy } = await getMailboxPolicy(repository, input.recipient);
 
   const issuedAt = new Date().toISOString();
-  const lifetimeMs = process.env.STEALTH_QUOTE_LIFETIME_MS ? parseInt(process.env.STEALTH_QUOTE_LIFETIME_MS, 10) : 15 * 60 * 1000;
+  const lifetimeMs = process.env.STEALTH_QUOTE_LIFETIME_MS
+    ? parseInt(process.env.STEALTH_QUOTE_LIFETIME_MS, 10)
+    : 15 * 60 * 1000;
   const expiresAt = new Date(Date.now() + lifetimeMs).toISOString();
 
   if (rule === "block") {
