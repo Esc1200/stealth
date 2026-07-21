@@ -32,11 +32,11 @@ describe("createRouteHandler", () => {
       path: "/api/test",
       status: "200",
     });
-    expect(metrics.recordHistogram).toHaveBeenCalledWith(
-      "api_latency",
-      expect.any(Number),
-      { method: "GET", path: "/api/test", status: "200" }
-    );
+    expect(metrics.recordHistogram).toHaveBeenCalledWith("api_latency", expect.any(Number), {
+      method: "GET",
+      path: "/api/test",
+      status: "200",
+    });
   });
 
   it("catches errors and logs failure metrics", async () => {
@@ -69,7 +69,7 @@ describe("createRouteHandler", () => {
     const request = new Request("http://localhost/api/test", {
       method: "POST",
       body: JSON.stringify({ value: 42 }),
-      headers: { "Content-Type": "application/json" }
+      headers: { "Content-Type": "application/json" },
     });
     const response = await handler(request);
     expect(response.status).toBe(200);
@@ -84,7 +84,7 @@ describe("createRouteHandler", () => {
     const request = new Request("http://localhost/api/test", {
       method: "POST",
       body: JSON.stringify({ value: "not a number" }),
-      headers: { "Content-Type": "application/json" }
+      headers: { "Content-Type": "application/json" },
     });
     const response = await handler(request);
     expect(response.status).toBe(422);
@@ -101,7 +101,7 @@ describe("createRouteHandler", () => {
 
     const request = new Request("http://localhost/api/test", {
       method: "GET",
-      headers: { [ACTOR_HEADER]: "GAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB" }
+      headers: { [ACTOR_HEADER]: "GAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB" },
     });
     const response = await handler(request);
     expect(response.status).toBe(200);

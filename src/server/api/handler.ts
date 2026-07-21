@@ -14,7 +14,7 @@ export type RateLimitConfig = {
 export type RouteConfig<
   BodySchema extends z.ZodTypeAny,
   QuerySchema extends z.ZodTypeAny,
-  ParamsSchema extends z.ZodTypeAny
+  ParamsSchema extends z.ZodTypeAny,
 > = {
   requireAuth?: boolean;
   rateLimit?: RateLimitConfig;
@@ -34,14 +34,14 @@ export type RouteConfig<
 export function createRouteHandler<
   BodySchema extends z.ZodTypeAny = z.ZodAny,
   QuerySchema extends z.ZodTypeAny = z.ZodAny,
-  ParamsSchema extends z.ZodTypeAny = z.ZodAny
+  ParamsSchema extends z.ZodTypeAny = z.ZodAny,
 >(config: RouteConfig<BodySchema, QuerySchema, ParamsSchema>) {
   return async (request: Request, params?: Record<string, string>): Promise<Response> => {
     const startTime = performance.now();
     const method = request.method;
     const url = new URL(request.url);
     const path = url.pathname;
-    
+
     let actorId: string | undefined;
 
     try {
@@ -121,24 +121,31 @@ export function createRouteHandler<
 
       // 6. Success Metrics & Logs
       const latency = performance.now() - startTime;
-      metrics.recordHistogram("api_latency", latency, { method, path, status: String(response.status) });
-      metrics.incrementCounter("api_requests_total", { method, path, status: String(response.status) });
-      
-      console.log(`[API SUCCESS] ${method} ${path} - ${response.status} (${latency.toFixed(2)}ms)`);
-      
-      return response;
+      metrics.recordHistogram("api_latency", latency, {
+        method,
+        path,
+        status: String(response.status),
+      });
+      metrics.incrementCounter("api_requests_total", {
+        method,
+        path,
+        status: String(response.status),
+      });
 
+      console.log(`[API SUCCESS] ${method} ${path} - ${response.status} (${latency.toFixed(2)}ms)`);
+
+      return response;
     } catch (error: any) {
       // 7. Error Metrics & Logs
       const latency = performance.now() - startTime;
       const status = error instanceof ApiError ? error.status : 500;
-      
+
       metrics.recordHistogram("api_latency", latency, { method, path, status: String(status) });
       metrics.incrementCounter("api_requests_total", { method, path, status: String(status) });
       metrics.incrementCounter("api_errors_total", { method, path, status: String(status) });
-      
+
       console.error(`[API ERROR] ${method} ${path} - ${status} (${latency.toFixed(2)}ms)`, error);
-      
+
       return apiFailure(request, error);
     }
   };
