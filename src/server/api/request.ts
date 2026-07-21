@@ -38,8 +38,27 @@ export async function parseJsonBody<T>(
   }
 }
 
+const MULTI_VALUED_SCALARS = new Set<string>();
+
 export function parseSearchParams<T>(request: Request, schema: ZodType<T>): T {
-  const params = Object.fromEntries(new URL(request.url).searchParams.entries());
+  const url = new URL(request.url);
+  const seen = new Map<string, string[]>();
+  for (const [key, value] of url.searchParams.entries()) {
+    if (MULTI_VALUED_SCALARS.has(key)) continue;
+    const prev = seen.get(key) ?? [];
+    prev.push(value);
+    seen.set(key, prev);
+  }
+  for (const [key, values] of seen) {
+    if (values.length > 1) {
+      throw new ApiError(
+        400,
+        "bad_request",
+        `Duplicate query parameter: ${key}. Expected a single value for '${key}'.`,
+      );
+    }
+  }
+  const params = Object.fromEntries(url.searchParams.entries());
   return schema.parse(params);
 }
 
