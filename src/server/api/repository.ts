@@ -87,13 +87,7 @@ export interface ApiRepository {
   getReceipt(messageId: string): Promise<Receipt | null>;
   setReceipt(receipt: Receipt): Promise<Receipt>;
   createReceiptIfAbsent(receipt: Receipt): Promise<{ created: boolean; receipt: Receipt }>;
-  markReceiptRead(
-    messageId: string,
-    readAt: string,
-  ): Promise<{
-    receipt: Receipt;
-    updated: boolean;
-  } | null>;
+  markReceiptRead(messageId: string, actor: string, now?: Date): Promise<MarkReceiptReadResult>;
   acquireIdempotencyRecord(key: string, leaseMs: number): Promise<AcquireIdempotencyResult>;
   getIdempotencyRecord(key: string): Promise<IdempotencyRecord | null>;
   setIdempotencyRecord(key: string, record: IdempotencyRecord): Promise<void>;
@@ -209,9 +203,10 @@ export class ValidatedApiRepository implements ApiRepository {
 
   markReceiptRead(
     messageId: string,
-    readAt: string,
-  ): Promise<{ receipt: Receipt; updated: boolean } | null> {
-    return this.inner.markReceiptRead(messageId, readAt);
+    actor: string,
+    now?: Date,
+  ): Promise<import("./repository").MarkReceiptReadResult> {
+    return this.inner.markReceiptRead(messageId, actor, now);
   }
 
   acquireIdempotencyRecord(key: string, leaseMs: number): Promise<AcquireIdempotencyResult> {

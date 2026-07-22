@@ -113,6 +113,16 @@ export class MemoryApiRepository implements ApiRepository {
     return structuredClone(receipt);
   }
 
+  async createReceiptIfAbsent(receipt: Receipt) {
+    return this.withReceiptLock(receipt.messageId, async () => {
+      const existing = this.receipts.get(receipt.messageId);
+      if (existing) return { created: false, receipt: structuredClone(existing) };
+
+      this.receipts.set(receipt.messageId, structuredClone(receipt));
+      return { created: true, receipt: structuredClone(receipt) };
+    });
+  }
+
   async markReceiptRead(
     messageId: string,
     actor: string,
