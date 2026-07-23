@@ -201,11 +201,7 @@ export class ValidatedApiRepository implements ApiRepository {
     return this.inner.createReceiptIfAbsent(receipt);
   }
 
-  markReceiptRead(
-    messageId: string,
-    actor: string,
-    now?: Date,
-  ): Promise<import("./repository").MarkReceiptReadResult> {
+  markReceiptRead(messageId: string, actor: string, now?: Date): Promise<MarkReceiptReadResult> {
     return this.inner.markReceiptRead(messageId, actor, now);
   }
 
@@ -289,6 +285,7 @@ const RETRY_SAFE_OPERATIONS = new Set<string>([
   "markReceiptRead",
   "setIdempotencyRecord",
   "transitionPostage",
+  "markReceiptRead",
 ]);
 
 function isRetryableError(error: unknown): boolean {
