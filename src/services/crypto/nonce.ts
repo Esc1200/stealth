@@ -59,18 +59,19 @@ const HEX_REGEX = /^[0-9a-fA-F]*$/;
  * hex and the resulting length matches the algorithm's expected nonce length.
  * Returns a typed result so callers branch on `ok` without parsing messages.
  */
-export function decodeNonce(
-  value: string,
-  algorithm: NonceAlgorithm,
-): CryptoResult<Uint8Array> {
+export function decodeNonce(value: string, algorithm: NonceAlgorithm): CryptoResult<Uint8Array> {
   if (typeof value !== "string" || value.length === 0) {
-    return cryptoFail(new CryptoError("crypto_validation_error", "nonce must be a non-empty string"));
+    return cryptoFail(
+      new CryptoError("crypto_validation_error", "nonce must be a non-empty string"),
+    );
   }
   if (value.length % 2 !== 0) {
     return cryptoFail(new CryptoError("crypto_validation_error", "nonce hex length must be even"));
   }
   if (!HEX_REGEX.test(value)) {
-    return cryptoFail(new CryptoError("crypto_validation_error", "nonce contains non-hex characters"));
+    return cryptoFail(
+      new CryptoError("crypto_validation_error", "nonce contains non-hex characters"),
+    );
   }
 
   const bytes = new Uint8Array(value.length / 2);
@@ -81,7 +82,10 @@ export function decodeNonce(
   const expected = NONCE_LENGTHS[algorithm];
   if (bytes.length !== expected) {
     return cryptoFail(
-      new CryptoError("crypto_validation_error", `nonce must be ${expected} bytes for ${algorithm}`),
+      new CryptoError(
+        "crypto_validation_error",
+        `nonce must be ${expected} bytes for ${algorithm}`,
+      ),
     );
   }
 
@@ -109,7 +113,10 @@ export function validateNonceLength(
   const expected = NONCE_LENGTHS[algorithm];
   if (nonce.length !== expected) {
     return cryptoFail(
-      new CryptoError("crypto_validation_error", `nonce must be ${expected} bytes for ${algorithm}`),
+      new CryptoError(
+        "crypto_validation_error",
+        `nonce must be ${expected} bytes for ${algorithm}`,
+      ),
     );
   }
   return cryptoOk(nonce);
