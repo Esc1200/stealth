@@ -13,6 +13,10 @@ export interface KbArticle {
   tags: string[];
   /** Short summary shown to the user. */
   summary?: string;
+  /** Locale code (e.g., "en", "fr"). */
+  locale?: string;
+  /** Access metadata (e.g., "public", "team"). */
+  access?: string;
 }
 
 /** A ranked suggestion. */
@@ -30,4 +34,29 @@ export interface SuggestInput {
   query: string;
   /** Maximum number of suggestions to return. */
   limit?: number;
+  /** Optional team or product context for filtering. */
+  team?: string;
+  /** Optional product context for filtering. */
+  product?: string;
+}
+
+/** Match reason for explainability. */
+export type KbMatchReason =
+  | { type: "tag-match"; token: string; matchedValue: string }
+  | { type: "title-keyword"; token: string; matchedValue: string };
+
+/** A filter function applied to the corpus. */
+export interface KbCorpusFilter {
+  name: string;
+  (article: KbArticle): boolean;
+}
+
+/** Result of corpus filtering with warnings. */
+export interface KbCorpusFilterResult {
+  /** Articles that passed all filters. */
+  filtered: KbArticle[];
+  /** Warnings about removed articles. */
+  warnings: string[];
+  /** Filter names that were applied. */
+  appliedFilters: string[];
 }
