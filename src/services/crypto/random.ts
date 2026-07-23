@@ -27,7 +27,13 @@ export const MESSAGE_ID_BYTES = 16;
 /** Encoding used for the identifier string. */
 export type MessageIdEncoding = "hex" | "base64url";
 
+import { getCryptoTestVectors } from "./testing";
+
 function getRandomBytes(length: number): Uint8Array {
+  const { getRandomValues } = getCryptoTestVectors();
+  if (getRandomValues) {
+    return getRandomValues(new Uint8Array(length));
+  }
   if (typeof crypto === "undefined" || typeof crypto.getRandomValues !== "function") {
     throw new CryptoIdError("cryptographically secure random source is unavailable");
   }

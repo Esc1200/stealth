@@ -7,6 +7,8 @@
  * plaintext is never returned, logged, or attached to thrown errors.
  */
 
+import { getCryptoTestVectors } from "./testing";
+
 export interface EnvelopeAttachment {
   filename: string;
   content_type: string;
@@ -100,14 +102,23 @@ export async function sealEnvelope(input: SealEnvelopeInput): Promise<SealedEnve
     throw new Error("Cannot seal an empty message body");
   }
 
-  const key = await crypto.subtle.generateKey({ name: "AES-GCM", length: 256 }, true, [
-    "encrypt",
-    "decrypt",
-  ]);
-  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const { generateKey, getRandomValues, now } = getCryptoTestVectors();
+
+  const key = generateKey
+    ? await generateKey({ name: "AES-GCM", length: 256 }, true, ["encrypt", "decrypt"])
+    : await crypto.subtle.generateKey({ name: "AES-GCM", length: 256 }, true, [
+        "encrypt",
+        "decrypt",
+      ]);
+  const ivArray = new Uint8Array(12);
+  const iv = getRandomValues ? getRandomValues(ivArray) : crypto.getRandomValues(ivArray);
   const plaintext = new TextEncoder().encode(body);
   const ciphertext = new Uint8Array(
-    await crypto.subtle.encrypt({ name: "AES-GCM", iv }, key, plaintext),
+    await crypto.subtle.encrypt(
+      { name: "AES-GCM", iv: iv as BufferSource },
+      key,
+      plaintext as BufferSource,
+    ),
   );
 
   // AES-GCM appends a 16-byte auth tag to the end of the ciphertext.
@@ -142,7 +153,7 @@ export async function sealEnvelope(input: SealEnvelopeInput): Promise<SealedEnve
     version: "v1",
     sender: input.sender,
     recipient: input.recipient,
-    timestamp: new Date().toISOString(),
+    timestamp: now ? now().toISOString() : new Date().toISOString(),
     encryption_metadata: {
       algorithm: "AES-256-GCM",
       nonce: toHex(iv),

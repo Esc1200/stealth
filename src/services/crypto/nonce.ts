@@ -45,22 +45,12 @@ export const NONCE_LENGTHS = {
 
 export type NonceAlgorithm = keyof typeof NONCE_LENGTHS;
 
-/** A test-only deterministic generator; undefined means use production CSPRNG. */
-export type NonceGenerator = (length: number) => Uint8Array;
-
-let injectedGenerator: NonceGenerator | undefined;
-
-/**
- * Test seam: install a deterministic generator. Passing `undefined` restores
- * production behavior. MUST NOT be used outside tests.
- */
-export function __setNonceGeneratorForTesting(generator: NonceGenerator | undefined): void {
-  injectedGenerator = generator;
-}
+import { getCryptoTestVectors } from "./testing";
 
 function randomBytes(length: number): Uint8Array {
-  if (injectedGenerator) {
-    return injectedGenerator(length);
+  const { getRandomValues } = getCryptoTestVectors();
+  if (getRandomValues) {
+    return getRandomValues(new Uint8Array(length));
   }
   if (typeof crypto === "undefined" || typeof crypto.getRandomValues !== "function") {
     throw new NonceError("crypto_algorithm_error", "secure random source unavailable");

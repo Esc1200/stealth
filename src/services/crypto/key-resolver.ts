@@ -11,6 +11,8 @@
  * all validated before use. Self-contained (local ResolverError).
  */
 
+import { getCryptoTestVectors } from "./testing";
+
 /** Minimal non-secret error carrying a stable code (no key/plaintext leakage). */
 export class ResolverError extends Error {
   readonly code = "crypto_validation_error" as const;
@@ -62,7 +64,7 @@ function parseIso(value: string): number {
 export function validateResolvedKey(
   key: ResolvedKey,
   recipient: string,
-  now: Date = new Date(),
+  now: Date = getCryptoTestVectors().now ? getCryptoTestVectors().now!() : new Date(),
 ): ResolvedKey {
   if (key.recipient !== recipient) {
     throw new ResolverError("resolved key is not bound to the requested recipient");
@@ -90,7 +92,7 @@ export function validateResolvedKey(
 export async function resolveTrustedKey(
   resolver: RecipientKeyResolver,
   recipient: string,
-  now: Date = new Date(),
+  now: Date = getCryptoTestVectors().now ? getCryptoTestVectors().now!() : new Date(),
 ): Promise<ResolvedKey> {
   const key = await resolver.resolve(recipient);
   return validateResolvedKey(key, recipient, now);
